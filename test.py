@@ -25,8 +25,12 @@ def main():
 	inputs.sort()
 	outputs.sort()
 
+	print('[*] '+str(len(inputs)) + ' test cases found.')
+	print('-'*23)
+
 	AC = True
 	WA = ''
+	WA_cnt = 0
 	for x in range(len(inputs)):
 		p = subprocess.Popen('./'+target_file, stdin=open(inputs[x], 'r'), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 		output = p.stdout.read()
@@ -40,12 +44,17 @@ def main():
 			print(bcolors.OKGREEN + 'AC' + bcolors.ENDC)
 		else:
 			AC = False
-			WA += '=' * 10 + '\n'
-			WA += 'Output:\n' + output + '\n\n'
-			WA += 'Answer:\n' + answer
+			WA += 'Output:\n' + output + '\n'
+			WA += 'Answer:\n' + answer + '\n'
+			WA_cnt += 1
 			print(bcolors.WARNING + 'WA' + bcolors.ENDC)
 
-	print(WA)
+	print('-'*23)
+	if AC:
+		print('[+] test passed.')
+	else:
+		print(WA)
+		print('[-] test failed : ' + str(WA_cnt) + 'AC / ' + str(len(inputs)) + ' cases')
 
 if __name__=='__main__':
 	main()
