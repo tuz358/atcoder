@@ -69,7 +69,7 @@ def main():
 		copy2clipboard(open(target_file).read())
 	else:
 		print(WA)
-		print('[-] test failed : ' + str(WA_cnt) + 'AC / ' + str(len(inputs)) + ' cases')
+		print('[-] test failed : ' + str(len(inputs) - WA_cnt) + 'AC / ' + str(len(inputs)) + ' cases')
 
 if __name__=='__main__':
 	main()
