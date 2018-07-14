@@ -5,8 +5,9 @@ import subprocess
 import glob
 import sys
 import os
+import pyperclip
 
-ext2exec = {'.c': 'gcc', '.cpp': 'g++'}
+ext2exec = {'.c': 'gcc', '.cpp': 'g++-4.9'}
 
 class bcolors:
 	HEADER = '\033[95m'
@@ -18,6 +19,9 @@ class bcolors:
 	BOLD = '\033[1m'
 	UNDERLINE = '\033[4m'
 
+def copy2clipboard(text):
+	pyperclip.copy(text)
+
 def main():
 	target_file = sys.argv[1]
 	inputs = glob.glob('./in_*.txt')
@@ -26,13 +30,22 @@ def main():
 	outputs.sort()
 
 	print('[*] '+str(len(inputs)) + ' test cases found.')
+
+	cmd = ['g++-4.9', target_file]
+	p = subprocess.call(cmd)
+	cmd = ' '.join(cmd)
+	if p == 0:
+		print(cmd + '\r\t\t... ' + bcolors.OKGREEN + 'OK' + bcolors.ENDC)
+	else:
+		print(cmd + '\r\t\t... ' + bcolors.WARNING + 'CE' + bcolors.ENDC)
+
 	print('-'*23)
 
 	AC = True
 	WA = ''
 	WA_cnt = 0
 	for x in range(len(inputs)):
-		p = subprocess.Popen('./'+target_file, stdin=open(inputs[x], 'r'), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+		p = subprocess.Popen('./a.out', stdin=open(inputs[x], 'r'), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 		output = p.stdout.read()
 		answer = open(outputs[x]).read()
 		
@@ -52,6 +65,7 @@ def main():
 	print('-'*23)
 	if AC:
 		print('[+] test passed.')
+		copy2clipboard(open(target_file).read())
 	else:
 		print(WA)
 		print('[-] test failed : ' + str(WA_cnt) + 'AC / ' + str(len(inputs)) + ' cases')
