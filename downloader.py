@@ -13,12 +13,13 @@ def save_testcase(data, ftype, index):
 
 def main():
 	contest_name = sys.argv[1]
-	level = ord(sys.argv[2]) - 64
+	#level = ord(sys.argv[2]) - 64
+	level = sys.argv[2].tolower()
 
 	url = 'http://beta.atcoder.jp/contests/'
 	url += contest_name
 	url += '/tasks/'
-	url += contest_name + '_' + str(level)
+	url += contest_name + '_' + level
 
 	print('URL: ' + url)
 
