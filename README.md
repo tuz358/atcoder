@@ -3,7 +3,7 @@ archiving problems solved and some tools.
 
 ## Tools
 
-### downloader.py
+### 1. downloader.py
 download sample cases automatically.
 
 #### Usage
@@ -23,7 +23,7 @@ in_2.txt	out_1.txt	out_3.txt
 - requests
 - BeautifulSoup4
 
-### test.py
+### 2. test.py
 test sample cases and copy your code to clipboard.
 
 #### Usage
