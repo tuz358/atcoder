@@ -38,6 +38,7 @@ def main():
 		print(cmd + '\r\t\t... ' + bcolors.OKGREEN + 'OK' + bcolors.ENDC)
 	else:
 		print(cmd + '\r\t\t... ' + bcolors.WARNING + 'CE' + bcolors.ENDC)
+		sys.exit()
 
 	print('-'*23)
 
